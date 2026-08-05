@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Leo | 100% Pure Vegetarian & Fast Food Delights - Chiplun</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#F59E0B',
+                            amber: '#D97706',
+                            green: '#047857',
+                            darkGreen: '#064E3B',
+                            red: '#DC2626',
+                            cream: '#FFFBEB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .food-card:hover {
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
+        .veg-icon {
+            border: 2px solid #16a34a;
+            padding: 2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .veg-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #16a34a;
+            border-radius: 50%;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97706;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-amber-50/30 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brand-darkGreen text-white text-xs md:text-sm py-2 px-4 text-center flex justify-between items-center px-6">
+        <span class="flex items-center gap-2">
+            <span class="veg-icon border-green-400"><span class="veg-dot bg-green-400"></span></span>
+            100% Pure Vegetarian Kitchen | Chiplun, Maharashtra
+        </span>
+        <div class="hidden md:flex items-center space-x-4">
+            <span><i class="fa-solid fa-phone text-brand-gold mr-1"></i> +91 98765 43210</span>
+            <span><i class="fa-solid fa-clock text-brand-gold mr-1"></i> Open Daily: 10:00 AM - 11:00 PM</span>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-14 h-14 bg-gradient-to-tr from-brand-amber to-brand-gold rounded-full flex items-center justify-center shadow-lg p-1">
+                    <!-- SVG Custom Logo for Hotel Leo -->
+                    <svg viewBox="0 0 100 100" class="w-full h-full text-white">
+                        <!-- Lion Mane & Face Silhouette -->
+                        <path d="M50 5 C25 5 10 25 10 50 C10 75 25 95 50 95 C75 95 90 75 90 50 C90 25 75 5 50 5 Z" fill="#047857" />
+                        <path d="M50 12 C30 12 18 28 18 50 C18 72 30 88 50 88 C70 88 82 72 82 50 C82 28 70 12 50 12 Z" fill="#D97706" />
+                        <!-- Lion Eyes & Nose -->
+                        <circle cx="38" cy="42" r="4" fill="#FFF" />
+                        <circle cx="62" cy="42" r="4" fill="#FFF" />
+                        <polygon points="50,52 44,60 56,60" fill="#FFF" />
+                        <!-- Crown / Golden Leaf Accents -->
+                        <path d="M50 20 L55 30 L65 28 L58 36 L64 45 L50 40 L36 45 L42 36 L35 28 L45 30 Z" fill="#F59E0B" />
+                        <!-- Pure Veg Green Leaf Symbol below -->
+                        <path d="M50 65 Q60 60 65 72 Q50 80 50 65 Z" fill="#10B981" />
+                        <path d="M50 65 Q40 60 35 72 Q50 80 50 65 Z" fill="#059669" />
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-2xl font-black tracking-wider text-brand-darkGreen uppercase">Hotel</span>
+                        <span class="text-2xl font-black tracking-wider text-brand-amber uppercase">Leo</span>
+                    </div>
+                    <p class="text-xs font-semibold text-green-700 tracking-wide uppercase flex items-center gap-1">
+                        <span class="veg-icon"><span class="veg-dot"></span></span> Pure Veg & Fast Food
+                    </p>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex space-x-8 text-gray-700 font-semibold">
+                <a href="#home" class="hover:text-brand-amber transition">Home</a>
+                <a href="#menu" class="hover:text-brand-amber transition">Menu</a>
+                <a href="#services" class="hover:text-brand-amber transition">Dining & Delivery</a>
+                <a href="#about" class="hover:text-brand-amber transition">About Us</a>
+                <a href="#contact" class="hover:text-brand-amber transition">Contact</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-3">
+                <a href="#order-section" class="bg-brand-gold hover:bg-brand-amber text-white px-4 py-2 rounded-full font-bold shadow-md transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-utensils"></i> Order / Book Table
+                </a>
+                <button id="cartBtn" onclick="toggleCartModal()" class="relative bg-brand-green text-white p-2.5 rounded-full hover:bg-brand-darkGreen transition">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-r from-emerald-900 via-green-800 to-amber-900 text-white py-16 md:py-24 px-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10 gap-10">
+            <div class="md:w-1/2 space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 bg-yellow-500/20 text-yellow-300 border border-yellow-400/30 px-3 py-1 rounded-full text-xs md:text-sm font-semibold">
+                    <i class="fa-solid fa-location-dot"></i> Chiplun's Favorite Pure Veg & Fast Food Spot
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                    Taste Pure Happiness at <span class="text-brand-gold">Hotel Leo</span>
+                </h1>
+                <p class="text-gray-200 text-base md:text-lg">
+                    Located in Chiplun (Mumbai-Goa Highway route). Savor mouth-watering Pani Puri, crispy Chole Bhature, rich Pav Bhaji, authentic Thalis, and street fast food crafted with 100% pure vegetarian ingredients.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <a href="#menu" class="bg-brand-gold hover:bg-brand-amber text-gray-900 font-bold px-6 py-3 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Explore Full Menu
+                    </a>
+                    <a href="#order-section" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-6 py-3 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-truck-fast"></i> Order Online
+                    </a>
+                </div>
+                <div class="pt-4 flex items-center justify-center md:justify-start gap-6 text-xs md:text-sm text-gray-300">
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-check-circle text-green-400"></i> Offline Dine-in Chiplun</span>
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-check-circle text-green-400"></i> Local Delivery</span>
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-check-circle text-green-400"></i> Travel Highway Takeaways</span>
+                </div>
+            </div>
+
+            <!-- Banner Visual Grid -->
+            <div class="md:w-1/2 grid grid-cols-2 gap-4 w-full max-w-md">
+                <div class="space-y-4">
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-center shadow-xl">
+                        <span class="text-4xl">🥙</span>
+                        <h3 class="font-bold mt-2 text-yellow-300">Chole Bhature</h3>
+                        <p class="text-xs text-gray-200">Fluffy bhature & spiced chickpea curry</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-center shadow-xl">
+                        <span class="text-4xl">😋</span>
+                        <h3 class="font-bold mt-2 text-yellow-300">Crispy Pani Puri</h3>
+                        <p class="text-xs text-gray-200">Tangy mint water & spicy potato filling</p>
+                    </div>
+                </div>
+                <div class="space-y-4 mt-6">
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-center shadow-xl">
+                        <span class="text-4xl">🍲</span>
+                        <h3 class="font-bold mt-2 text-yellow-300">Butter Pav Bhaji</h3>
+                        <p class="text-xs text-gray-200">Mashed veggies topped with butter</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-center shadow-xl">
+                        <span class="text-4xl">🍱</span>
+                        <h3 class="font-bold mt-2 text-yellow-300">Special Leo Thali</h3>
+                        <p class="text-xs text-gray-200">Complete rich North Indian meal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dining Services Toggle Info (Online vs Offline) -->
+    <section id="services" class="py-12 bg-white border-b">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-brand-darkGreen">How Would You Like To Eat Today?</h2>
+                <p class="text-gray-600 text-sm">Hotel Leo serves you both at our cozy restaurant in Chiplun or delivers right to your home.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Offline Dining Box -->
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4 items-start shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-brand-gold text-white rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Offline Dine-In @ Chiplun</h3>
+                        <p class="text-sm text-gray-600 mt-1">Visit Hotel Leo in Chiplun for a family-friendly environment, AC seating, or quick highway takeaways.</p>
+                        <ul class="text-xs text-gray-700 mt-3 space-y-1">
+                            <li><i class="fa-solid fa-check text-green-600 mr-1"></i> AC Family Seating Available</li>
+                            <li><i class="fa-solid fa-check text-green-600 mr-1"></i> Live Fast Food & Chaat Counter</li>
+                            <li><i class="fa-solid fa-check text-green-600 mr-1"></i> Pre-book table for family dining</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Online Delivery Box -->
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex gap-4 items-start shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-brand-green text-white rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-motorcycle"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Online Express Delivery</h3>
+                        <p class="text-sm text-gray-600 mt-1">Order your favorite fast food and pure veg meals online with leak-proof eco packaging in Chiplun city.</p>
+                        <ul class="text-xs text-gray-700 mt-3 space-y-1">
+                            <li><i class="fa-solid fa-check text-green-600 mr-1"></i> Quick Fast Delivery</li>
+                            <li><i class="fa-solid fa-check text-green-600 mr-1"></i> Hot & Fresh Hygienic Packaging</li>
+                            <li><i class="fa-solid fa-check text-green-600 mr-1"></i> Free delivery on orders above ₹299</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Menu Section -->
+    <section id="menu" class="py-16 px-4 max-w-7xl mx-auto w-full">
+        <div class="text-center mb-10">
+            <span class="text-brand-amber font-bold text-sm tracking-widest uppercase">Pure Veg Culinary Delights</span>
+            <h2 class="text-3xl md:text-4xl font-black text-brand-darkGreen mt-1">Hotel Leo Special Menu</h2>
+            <p class="text-gray-600 max-w-xl mx-auto mt-2 text-sm">Select your favorite mouth-watering snacks, street food, and authentic vegetarian main courses.</p>
+            
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 md:gap-3 mt-6" id="categoryFilters">
+                <button onclick="filterMenu('all')" class="cat-btn active bg-brand-darkGreen text-white px-4 py-2 rounded-full font-semibold text-sm shadow">All Items</button>
+                <button onclick="filterMenu('fastfood')" class="cat-btn bg-white hover:bg-amber-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-full font-semibold text-sm shadow-sm">Street Fast Food</button>
+                <button onclick="filterMenu('maincourse')" class="cat-btn bg-white hover:bg-amber-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-full font-semibold text-sm shadow-sm">North Indian & Thalis</button>
+                <button onclick="filterMenu('chinese')" class="cat-btn bg-white hover:bg-amber-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-full font-semibold text-sm shadow-sm">Indo-Chinese</button>
+                <button onclick="filterMenu('beverages')" class="cat-btn bg-white hover:bg-amber-100 text-gray-700 border border-gray-200 px-4 py-2 rounded-full font-semibold text-sm shadow-sm">Drinks & Desserts</button>
+            </div>
+
+            <!-- Search bar -->
+            <div class="max-w-md mx-auto mt-6 relative">
+                <input type="text" id="menuSearch" onkeyup="searchMenu()" placeholder="Search dish (e.g. Pani Puri, Paneer, Dosa)..." class="w-full pl-10 pr-4 py-2.5 rounded-full border border-amber-300 focus:outline-none focus:ring-2 focus:ring-brand-gold shadow-sm text-sm">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- Menu Items Grid -->
+        <div id="menuGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Menu items rendered by JS -->
+        </div>
+    </section>
+
+    <!-- Combined Order Online & Table Reservation Section -->
+    <section id="order-section" class="py-16 bg-gradient-to-b from-amber-100/50 to-white px-4">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-amber-200 overflow-hidden">
+            <div class="bg-brand-darkGreen p-6 text-white text-center">
+                <h2 class="text-2xl md:text-3xl font-extrabold">Order Online or Book Table in Chiplun</h2>
+                <p class="text-amber-200 text-sm mt-1">Fill in the details below for fast processing</p>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <!-- Toggle Tabs -->
+                <div class="flex rounded-xl bg-gray-100 p-1 mb-6">
+                    <button id="tabDeliveryBtn" onclick="switchOrderTab('delivery')" class="flex-1 py-2.5 rounded-lg font-bold text-sm bg-white shadow-sm text-brand-darkGreen transition">
+                        <i class="fa-solid fa-motorcycle mr-1"></i> Home Delivery (Chiplun)
+                    </button>
+                    <button id="tabBookingBtn" onclick="switchOrderTab('booking')" class="flex-1 py-2.5 rounded-lg font-bold text-sm text-gray-500 hover:text-gray-800 transition">
+                        <i class="fa-solid fa-chair mr-1"></i> Book Table (Chiplun Branch)
+                    </button>
+                </div>
+
+                <form id="checkoutForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Full Name *</label>
+                            <input type="text" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Phone Number *</label>
+                            <input type="tel" required placeholder="+91 98765 43210" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Fields based on tab -->
+                    <div id="deliveryFields">
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Delivery Address (Chiplun Area) *</label>
+                        <textarea rows="2" id="deliveryAddress" placeholder="Enter complete address in Chiplun with landmark..." class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm"></textarea>
+                    </div>
+
+                    <div id="bookingFields" class="hidden grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Date & Time *</label>
+                            <input type="datetime-local" id="bookingDateTime" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Number of Guests *</label>
+                            <select id="bookingGuests" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm">
+                                <option>2 Guests</option>
+                                <option>4 Guests</option>
+                                <option>6 Guests</option>
+                                <option>8+ Large Group</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Order Items Summary in Form -->
+                    <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-gray-800 text-sm">Selected Items:</span>
+                            <span id="formCartCount" class="text-xs bg-brand-amber text-white px-2 py-0.5 rounded-full">0 Items</span>
+                        </div>
+                        <div id="formCartList" class="text-xs text-gray-600 max-h-24 overflow-y-auto mb-2">
+                            <i>No items selected yet from the menu above.</i>
+                        </div>
+                        <div class="flex justify-between font-bold text-brand-darkGreen border-t border-amber-200 pt-2 text-base">
+                            <span>Total Amount:</span>
+                            <span id="formCartTotal">₹0</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-gold hover:bg-brand-amber text-gray-900 font-extrabold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Confirm Order / Reservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+            <div class="space-y-4">
+                <span class="veg-icon"><span class="veg-dot"></span></span>
+                <span class="text-brand-amber font-bold text-sm tracking-widest uppercase">About Hotel Leo Chiplun</span>
+                <h2 class="text-3xl font-extrabold text-brand-darkGreen">Where Taste Meets Pure Vegetarian Excellence</h2>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Welcome to <b>Hotel Leo</b> located in Chiplun (along the Mumbai route). We are the ultimate culinary stop for lovers of 100% pure vegetarian cuisine and authentic Indian street fast food. From our signature tangy Pani Puri to hot and fluffy Chole Bhature, every dish is prepared in an ultra-clean environment using premium quality spices, pure desi ghee, and fresh ingredients.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div class="border-l-4 border-brand-gold pl-3">
+                        <h4 class="font-bold text-gray-800">100% Pure Veg</h4>
+                        <p class="text-xs text-gray-500">Strictly vegetarian kitchen with zero contamination.</p>
+                    </div>
+                    <div class="border-l-4 border-brand-green pl-3">
+                        <h4 class="font-bold text-gray-800">Fresh Ingredients</h4>
+                        <p class="text-xs text-gray-500">Locally sourced vegetables & authentic spices.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gradient-to-tr from-brand-amber to-brand-green p-8 rounded-3xl text-white space-y-4 shadow-lg">
+                <h3 class="text-2xl font-bold">Why Chiplun & Travelers Love Hotel Leo?</h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-yellow-300"></i> Hygienic live counter for street fast food</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-yellow-300"></i> Perfect halt location for travelers on Mumbai route</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-yellow-300"></i> Specialized kid-friendly and Jain food options</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-yellow-300"></i> Quick service & affordable prices</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-12 bg-amber-50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-extrabold text-brand-darkGreen mb-8">What Our Foodies Say</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-200">
+                    <div class="text-brand-gold text-sm mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-gray-600 text-xs italic mb-4">"Best stop while traveling on the Mumbai highway! The Chole Bhature at Hotel Leo Chiplun is top notch."</p>
+                    <h4 class="font-bold text-gray-800 text-sm">- Rajesh Sharma</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-200">
+                    <div class="text-brand-gold text-sm mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-gray-600 text-xs italic mb-4">"Super hygienic Pani Puri counter in Chiplun! The spicy mint water is extremely refreshing."</p>
+                    <h4 class="font-bold text-gray-800 text-sm">- Priya Verma</h4>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-200">
+                    <div class="text-brand-gold text-sm mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-gray-600 text-xs italic mb-4">"Ordered their Special Leo Thali. Delivered hot in Chiplun within 20 minutes! Great family restaurant."</p>
+                    <h4 class="font-bold text-gray-800 text-sm">- Amit Patel</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact Section -->
+    <footer id="contact" class="bg-brand-darkGreen text-white pt-12 pb-6 border-t-4 border-brand-gold">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8 mb-8">
+            <!-- Brand Column -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center text-white font-black text-xl">L</div>
+                    <span class="text-xl font-black text-brand-gold tracking-wide">HOTEL LEO</span>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    Your trusted 100% pure vegetarian restaurant in Chiplun for delicious fast food, authentic North & South Indian meals.
+                </p>
+                <div class="flex space-x-3 text-brand-gold">
+                    <a href="#" class="hover:text-white"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="font-bold text-brand-gold mb-3 text-sm uppercase tracking-wider">Quick Navigation</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li><a href="#home" class="hover:underline">Home</a></li>
+                    <li><a href="#menu" class="hover:underline">Pure Veg Menu</a></li>
+                    <li><a href="#services" class="hover:underline">Fast Food Specialities</a></li>
+                    <li><a href="#order-section" class="hover:underline">Book Table / Order</a></li>
+                </ul>
+            </div>
+
+            <!-- Working Hours -->
+            <div>
+                <h4 class="font-bold text-brand-gold mb-3 text-sm uppercase tracking-wider">Opening Hours</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li>Monday - Friday: 10:00 AM - 11:00 PM</li>
+                    <li>Saturday - Sunday: 09:30 AM - 11:30 PM</li>
+                    <li class="text-yellow-400 font-semibold pt-1">Live Fast Food Counter Active All Day!</li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact -->
+            <div>
+                <h4 class="font-bold text-brand-gold mb-3 text-sm uppercase tracking-wider">Locate Offline Restaurant</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-location-dot text-brand-gold mt-1"></i>
+                        <span>Hotel Leo Building, Main Market Area, Near Chiplun Railway Station / Highway Touch, Chiplun, Maharashtra 415605</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-brand-gold"></i>
+                        <span>+91 98765 43210 / 02355 252525</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-brand-gold"></i>
+                        <span>contact@hotelleochiplun.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 border-t border-emerald-800 pt-4 text-center text-xs text-gray-400">
+            <p>&copy; 2026 Hotel Leo Pure Veg & Fast Food - Chiplun. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Slide-over Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black/50 z-50 hidden flex justify-end transition-opacity">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between p-6">
+            <div>
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <h3 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-brand-amber"></i> Your Food Basket
+                    </h3>
+                    <button onclick="toggleCartModal()" class="text-gray-400 hover:text-gray-700 text-xl font-bold">&times;</button>
+                </div>
+                <div id="cartModalList" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                    <!-- Dynamic cart items -->
+                </div>
+            </div>
+
+            <div class="border-t pt-4 space-y-3">
+                <div class="flex justify-between text-lg font-extrabold text-gray-800">
+                    <span>Subtotal:</span>
+                    <span id="cartModalTotal">₹0</span>
+                </div>
+                <p class="text-xs text-gray-500">Taxes & delivery calculated at checkout.</p>
+                <a href="#order-section" onclick="toggleCartModal()" class="block w-full bg-brand-green hover:bg-brand-darkGreen text-white text-center font-bold py-3 rounded-xl transition">
+                    Proceed to Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Modal -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 hidden flex items-center gap-3 border border-gray-700">
+        <i class="fa-solid fa-circle-check text-green-400 text-lg"></i>
+        <span id="toastMsg" class="text-sm font-medium">Item added to cart!</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Menu Items Database (100% Pure Veg & Fast Food)
+        const menuItems = [
+            {
+                id: 1,
+                name: "Special Golgappa / Pani Puri",
+                category: "fastfood",
+                price: 60,
+                rating: 4.9,
+                desc: "8 Crispy puris served with spicy mint water, sweet tamarind chutney & boiled potato chana stuffing.",
+                icon: "😋"
+            },
+            {
+                id: 2,
+                name: "Delhi Style Chole Bhature",
+                category: "fastfood",
+                price: 140,
+                rating: 5.0,
+                desc: "2 Fluffy golden bhature served with spicy chickpea masala, fried green chili & pickle.",
+                icon: "🥙"
+            },
+            {
+                id: 3,
+                name: "Special Amul Butter Pav Bhaji",
+                category: "fastfood",
+                price: 130,
+                rating: 4.8,
+                desc: "Rich mashed spiced vegetable curry cooked with extra Amul butter, served with 2 buttery pavs.",
+                icon: "🍲"
+            },
+            {
+                id: 4,
+                name: "Cheese Sev Puri Chat",
+                category: "fastfood",
+                price: 90,
+                rating: 4.7,
+                desc: "Flat crispy puris loaded with potatoes, tangy chutneys, nylon sev, and shredded cheese.",
+                icon: "🧀"
+            },
+            {
+                id: 5,
+                name: "Mumbai Vada Pav (2 Pcs)",
+                category: "fastfood",
+                price: 50,
+                rating: 4.6,
+                desc: "Spiced potato dumplings fried in chickpea batter, served inside soft buns with dry garlic chutney.",
+                icon: "🍔"
+            },
+            {
+                id: 6,
+                name: "Hotel Leo Deluxe Pure Veg Thali",
+                category: "maincourse",
+                price: 220,
+                rating: 4.9,
+                desc: "Paneer Butter Masala, Dal Tadka, Mix Veg, Jeera Rice, 3 Butter Rotis, Gulab Jamun, Salad & Papad.",
+                icon: "🍱"
+            },
+            {
+                id: 7,
+                name: "Paneer Tikka Masala",
+                category: "maincourse",
+                price: 190,
+                rating: 4.8,
+                desc: "Grilled fresh cottage cheese cubes simmered in rich spicy tomato gravy.",
+                icon: "🥘"
+            },
+            {
+                id: 8,
+                name: "Butter Garlic Naan / Roti",
+                category: "maincourse",
+                price: 45,
+                rating: 4.5,
+                desc: "Clay oven baked flatbread brushed with garlic and pure butter.",
+                icon: "🫓"
+            },
+            {
+                id: 9,
+                name: "Veg Hakka Noodles",
+                category: "chinese",
+                price: 120,
+                rating: 4.6,
+                desc: "Wok-tossed noodles with crunchy vegetables, soy sauce, and aromatic garlic spices.",
+                icon: "🍜"
+            },
+            {
+                id: 10,
+                name: "Crispy Veg Manchurian Dry",
+                category: "chinese",
+                price: 130,
+                rating: 4.7,
+                desc: "Deep fried vegetable balls tossed in tangy Indo-Chinese Manchurian sauce.",
+                icon: "🧆"
+            },
+            {
+                id: 11,
+                name: "Masala Dosa",
+                category: "fastfood",
+                price: 110,
+                rating: 4.8,
+                desc: "Crispy rice crepe filled with spiced potato masala, served with coconut chutney & sambar.",
+                icon: "🥞"
+            },
+            {
+                id: 12,
+                name: "Special Kulhad Masala Chai",
+                category: "beverages",
+                price: 30,
+                rating: 4.9,
+                desc: "Traditional Indian spiced tea served hot in earthen clay cup.",
+                icon: "☕"
+            },
+            {
+                id: 13,
+                name: "Sweet Punjabi Lassi",
+                category: "beverages",
+                price: 70,
+                rating: 4.8,
+                desc: "Thick chilled yogurt drink topped with malai and cardamom.",
+                icon: "🥛"
+            },
+            {
+                id: 14,
+                name: "Hot Gulab Jamun (2 Pcs)",
+                category: "beverages",
+                price: 50,
+                rating: 4.9,
+                desc: "Soft milk solid dumplings soaked in cardamom flavored sugar syrup.",
+                icon: "🍯"
+            }
+        ];
+
+        // Shopping Cart State
+        let cart = [];
+
+        // Render Menu Items
+        function renderMenu(itemsToRender = menuItems) {
+            const grid = document.getElementById('menuGrid');
+            grid.innerHTML = '';
+
+            if (itemsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-500">
+                        <i class="fa-solid fa-utensils text-4xl mb-2 text-gray-300"></i>
+                        <p class="font-bold">No food items match your search.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            itemsToRender.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "food-card bg-white rounded-2xl p-5 shadow-md border border-amber-100 flex flex-col justify-between relative";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-4xl">${item.icon}</span>
+                            <div class="flex items-center gap-1">
+                                <span class="veg-icon"><span class="veg-dot"></span></span>
+                                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
+                                    <i class="fa-solid fa-star text-amber-500"></i> ${item.rating}
+                                </span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-lg hover:text-brand-amber transition">${item.name}</h3>
+                        <p class="text-xs text-gray-500 mt-1 leading-snug">${item.desc}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-5 pt-3 border-t border-gray-100">
+                        <div>
+                            <span class="text-xs text-gray-400">Price</span>
+                            <div class="text-xl font-black text-brand-darkGreen">₹${item.price}</div>
+                        </div>
+                        <button onclick="addToCart(${item.id})" class="bg-brand-green hover:bg-brand-darkGreen text-white px-4 py-2 rounded-xl text-sm font-bold shadow transition flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> Add
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Menu by Category
+        function filterMenu(category) {
+            // Update active tab button style
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-darkGreen', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-white', 'text-gray-700');
+            event.target.classList.add('bg-brand-darkGreen', 'text-white');
+
+            if (category === 'all') {
+                renderMenu(menuItems);
+            } else {
+                const filtered = menuItems.filter(item => item.category === category);
+                renderMenu(filtered);
+            }
+        }
+
+        // Search Menu
+        function searchMenu() {
+            const query = document.getElementById('menuSearch').value.toLowerCase();
+            const filtered = menuItems.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.desc.toLowerCase().includes(query)
+            );
+            renderMenu(filtered);
+        }
+
+        // Add to Cart Logic
+        function addToCart(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            const existing = cart.find(i => i.id === itemId);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`Added "${item.name}" to cart!`);
+        }
+
+        // Update Cart UI Across Page
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // Update Header Cart Badge
+            document.getElementById('cartCount').innerText = totalCount;
+
+            // Update Checkout Form Summary
+            document.getElementById('formCartCount').innerText = `${totalCount} Items`;
+            document.getElementById('formCartTotal').innerText = `₹${totalPrice}`;
+
+            const formCartList = document.getElementById('formCartList');
+            if (cart.length === 0) {
+                formCartList.innerHTML = `<i>No items selected yet from the menu above.</i>`;
+            } else {
+                formCartList.innerHTML = cart.map(i => `
+                    <div class="flex justify-between py-1 border-b border-amber-100">
+                        <span>${i.name} (x${i.qty})</span>
+                        <span class="font-bold">₹${i.price * i.qty}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Update Modal Cart List
+            const modalList = document.getElementById('cartModalList');
+            document.getElementById('cartModalTotal').innerText = `₹${totalPrice}`;
+
+            if (cart.length === 0) {
+                modalList.innerHTML = `<p class="text-center text-gray-400 py-8">Your cart is empty!</p>`;
+            } else {
+                modalList.innerHTML = cart.map(i => `
+                    <div class="flex justify-between items-center bg-amber-50 p-3 rounded-xl">
+                        <div>
+                            <h4 class="font-bold text-sm text-gray-800">${i.name}</h4>
+                            <p class="text-xs text-gray-500">₹${i.price} x ${i.qty} = ₹${i.price * i.qty}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQty(${i.id}, -1)" class="w-6 h-6 bg-white border border-gray-300 rounded text-xs font-bold hover:bg-gray-100">-</button>
+                            <span class="text-xs font-bold">${i.qty}</span>
+                            <button onclick="changeQty(${i.id}, 1)" class="w-6 h-6 bg-white border border-gray-300 rounded text-xs font-bold hover:bg-gray-100">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Change Quantity in Cart
+        function changeQty(itemId, delta) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== itemId);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Toggle Cart Modal
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Switch Tab (Delivery vs Booking)
+        function switchOrderTab(tab) {
+            const delBtn = document.getElementById('tabDeliveryBtn');
+            const bookBtn = document.getElementById('tabBookingBtn');
+            const delFields = document.getElementById('deliveryFields');
+            const bookFields = document.getElementById('bookingFields');
+
+            if (tab === 'delivery') {
+                delBtn.className = "flex-1 py-2.5 rounded-lg font-bold text-sm bg-white shadow-sm text-brand-darkGreen transition";
+                bookBtn.className = "flex-1 py-2.5 rounded-lg font-bold text-sm text-gray-500 hover:text-gray-800 transition";
+                delFields.classList.remove('hidden');
+                bookFields.classList.add('hidden');
+            } else {
+                bookBtn.className = "flex-1 py-2.5 rounded-lg font-bold text-sm bg-white shadow-sm text-brand-darkGreen transition";
+                delBtn.className = "flex-1 py-2.5 rounded-lg font-bold text-sm text-gray-500 hover:text-gray-800 transition";
+                bookFields.classList.remove('hidden');
+                delFields.classList.add('hidden');
+            }
+        }
+
+        // Handle Form Submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert("Please add at least one dish from the menu to place an order/reservation.");
+                return;
+            }
+
+            const isDelivery = !document.getElementById('deliveryFields').classList.contains('hidden');
+            const mode = isDelivery ? "Online Home Delivery in Chiplun" : "Offline Table Reservation @ Chiplun Branch";
+
+            alert(`Thank you for ordering at Hotel Leo (Chiplun)!\n\nYour request for [${mode}] has been successfully received.\nOur team will call you shortly to confirm!`);
+
+            // Reset cart & form
+            cart = [];
+            updateCartUI();
+            e.target.reset();
+        }
+
+        // Show Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        // Initialize Menu on Load
+        window.onload = function() {
+            renderMenu();
+        };
+    </script>
+</body>
+</html>
